@@ -64,6 +64,15 @@ function Copyright() {
   )
 }
 
+function NotFound() {
+  return (
+    <div>
+      <h1>404 Page Not Found</h1>
+      <Link to="/">Click here to go to home page</Link>
+    </div>
+  )
+}
+
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -312,6 +321,7 @@ export default function App(props) {
               <Route exact path="/profile" component={ProfilePage} />
               <Route exact path="/post" component={Post} />
               <Route path="/blog/:id" component={Blog} />
+              <Route component={NotFound} />
             </Switch>
             <Tooltip title="Add" aria-label="add">
               <Link to="/post">
