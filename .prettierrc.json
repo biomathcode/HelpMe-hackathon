@@ -2,7 +2,6 @@
   "trailingComma": "es5",
   "semi": false,
   "singleQuote": true,
-  "endOfLine": "lf",
   "no-unused-vars": [
     "error",
     { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
