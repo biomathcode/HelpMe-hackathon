@@ -1,0 +1,56 @@
+scalar Point
+scalar DateTime
+scalar PointInput
+
+type User {
+  id: String!
+  name: String
+  username: String
+  email: String
+  password: String! @private
+  posts: [Post] @relationship(type: "MADE", direction: OUT)
+}
+
+type AuthToken @exclude {
+  token: String!
+}
+
+type Post {
+  postId: String!
+  title: String
+  description: String
+  date: DateTime
+  location: Location @relationship(type: "LOCATION_AT", direction: OUT)
+  user: User @relationship(type: "MADE", direction: IN)
+  Category: Category @relationship(type: "Out_CATEGORY", direction: OUT)
+}
+
+type Category {
+  name: String
+  posts: [Post] @relationship(type: "IN_CATEGORY", direction: IN)
+}
+
+type Location {
+  latitude: Float
+  longitude: Float
+}
+type Mutation {
+  signup(username: String!, password: String!): AuthToken
+  login(username: String!, password: String!): AuthToken
+}
+
+type Query {
+  UserCount: Int @cypher(statement: "MATCH (n:User) RETURN COUNT(n)")
+  peopleBySubstring(substring: String!): [User]
+    @cypher(
+      statement: "MATCH (n:User) where n.name CONTAINS $substring RETURN n"
+    )
+  findPostBySubstring(substring: String!): [Post]
+    @cypher(
+      statement: "MATCH (n:Post) where n.title CONTAINS $substring RETURN n"
+    )
+  findPostByCategory(category: String!): [Post]
+    @cypher(
+      statement: "MATCH (p:Post)-[:Out_CATEGORY]->(c:Category) WHERE c.name = $category RETURN p"
+    )
+}
