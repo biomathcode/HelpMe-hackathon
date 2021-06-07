@@ -7,12 +7,11 @@ import TextField from '@material-ui/core/TextField'
 import { useMutation, useQuery, gql } from '@apollo/client'
 
 import uuid from 'react-uuid'
-import PostByUser from './PostByUser'
 
 const Check_Query = gql`
   query FindingUsers($email: String) {
     users(where: { email: $email }, options: { limit: 1 }) {
-      email
+      username
     }
   }
 `
@@ -52,7 +51,6 @@ const Profile = () => {
 
   return isAuthenticated && !loading && !error ? (
     <div>
-      <PostByUser />
       <h1>Please complete your registration</h1>
       <ListItem>
         <div style={{ display: 'flex' }}>
@@ -75,8 +73,8 @@ const Profile = () => {
               createUsers({
                 variables: {
                   id: id,
-                  name: user.name,
-                  email: user.email,
+                  name: user?.name,
+                  email: user?.email,
                 },
               })
             }}

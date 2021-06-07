@@ -16,6 +16,9 @@ body {
 .js {
   justify-content: space-around;
 }
+.sb {
+  justify-content: space-between;
+}
 .mb {
   margin-bottom: 3.5%;
 }
@@ -23,6 +26,10 @@ body {
 .flex-c {
   display: flex;
   flex-direction: column;
+}
+.card-mx {
+  max-width: 500px;
+  margin-bottom: 5px;
 }
 
 .leaflet-div-icon {
